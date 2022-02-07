@@ -1,6 +1,6 @@
 {
     "extends": "@react-native-community",
-    "plugins": ["flowtype", "prettier"],
+    "plugins": ["prettier"],
     "parser": "@babel/eslint-parser",
     "rules": {
       "quotes": "off",
