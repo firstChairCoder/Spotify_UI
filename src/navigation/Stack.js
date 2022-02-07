@@ -36,7 +36,7 @@ Icon.propTypes = {
 const RootNavigator = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen
           name={"Main"}
           component={StackHome}
