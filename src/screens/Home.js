@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { FontAwesome as Icon } from "@expo/vector-icons";
 
 // components
@@ -15,8 +16,8 @@ import { FontAwesome as Icon } from "@expo/vector-icons";
 
 // mock data
 import heavyRotation from "../mockdata/heavyRotation.json";
-// import jumpBackIn from "../mockdata/jumpBackIn.json";
-// import recentlyPlayed from "../mockdata/recentlyPlayed.json";
+import jumpBackIn from "../mockdata/jumpBackIn.json";
+import recentlyPlayed from "../mockdata/recentlyPlayed.json";
 
 import { gStyle, colors, images } from "../../constants";
 
@@ -65,6 +66,8 @@ const styles = StyleSheet.create({
 });
 
 const AlbumsHorizontal = ({ data, heading, tagline }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={{ marginBottom: 32, width: "100%" }}>
       {heading && <Text style={styles.heading}>{heading}</Text>}
@@ -79,7 +82,7 @@ const AlbumsHorizontal = ({ data, heading, tagline }) => {
           <TouchableOpacity
             activeOpacity={gStyle.activeOpacity}
             hitSlop={{ top: 10, left: 10, bottom: 10, right: 10 }}
-            onPress={() => console.warn("Pressed!")}
+            onPress={() => navigation.navigate("Album", { title: item.title })}
             style={styles.item}
           >
             <View style={styles.image}>
@@ -121,10 +124,18 @@ const HomeScreen = () => {
       >
         <View style={gStyle.spacer16} />
 
+        <AlbumsHorizontal data={recentlyPlayed} heading="Recently played" />
+
         <AlbumsHorizontal
           data={heavyRotation}
           heading="Your heavy rotation"
           tagline="The music you've had on repeat this month."
+        />
+
+        <AlbumsHorizontal
+          data={jumpBackIn}
+          heading="Jump back in"
+          tagline="Your top listens from the past few months."
         />
       </Animated.ScrollView>
     </>
