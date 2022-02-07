@@ -8,7 +8,7 @@ import SearchSvg from "../../assets/svg/Search";
 
 const Stack = createNativeStackNavigator();
 
-const Icon = ({ focused }) => <SearchSvg active={focused} />;
+const Icon = ({ focused }) => <SearchSvg active={focused} size={25} />;
 
 Icon.propTypes = {
   focused: PropTypes.bool.isRequired,
@@ -20,7 +20,7 @@ const StackSearch = () => {
       <Stack.Screen
         name={"Search"}
         component={SearchScreen}
-        options={{ tabBarLabel: "Search", tabBarIcon: Icon }}
+        // options={{ tabBarLabel: "Search", tabBarIcon: Icon }}
       />
     </Stack.Navigator>
   );

@@ -101,6 +101,7 @@ const AlbumsHorizontal = ({ data, heading, tagline }) => {
 
 const HomeScreen = () => {
   const scrollY = new Animated.Value(0);
+
   const opacityOut = scrollY.interpolate({
     inputRange: [0, 88],
     outputRange: [1, 0],
