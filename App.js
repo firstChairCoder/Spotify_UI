@@ -2,6 +2,7 @@ import AppLoading from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { func } from "./constants";
+import { UtilityThemeProvider } from "react-native-design-utility";
 
 import RootStack from "./src/navigation/Stack";
 
@@ -19,9 +20,9 @@ export default function App() {
   }
 
   return (
-    <>
+    <UtilityThemeProvider>
       <StatusBar style="auto" />
       <RootStack />
-    </>
+    </UtilityThemeProvider>
   );
 }
