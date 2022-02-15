@@ -1,3 +1,5 @@
+import fonts from "./fonts";
+
 const color = {
   black: "#212121",
 
@@ -44,6 +46,12 @@ const color = {
   greenLightest: "#a5d6a7",
 };
 
+const font = {
+  light: fonts.spotifyLight,
+  regular: fonts.spotifyRegular,
+  bold: fonts.spotifyBold,
+};
+
 export const theme = {
   text: {
     size: {
@@ -53,11 +61,11 @@ export const theme = {
       lg: 20,
       xl: 24,
     },
-    weight: {
-      light: "200",
-      normal: "400",
-      bold: "700",
-    },
+    // weight: {
+    //   light: "200",
+    //   normal: "400",
+    //   bold: "700",
+    // },
     spacing: {
       tight: 0.8,
       normal: 1,
@@ -74,6 +82,7 @@ export const theme = {
     },
   },
   color,
+  font,
   space: {
     xs: 8,
     sm: 16,
@@ -109,10 +118,19 @@ export const theme = {
       shadowColor: color.black,
       shadowOffset: {
         width: 0,
-        height: 0,
+        height: -10,
       },
       shadowOpacity: 0.6,
-      shadowRadius: 5,
+      shadowRadius: 10,
+    },
+    {
+      shadowColor: color.black,
+      shadowOffset: {
+        width: 0,
+        height: 8,
+      },
+      shadowOpacity: 0.8,
+      shadowRadius: 6,
     },
   ],
   borders: [

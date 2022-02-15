@@ -1,23 +1,23 @@
 import { BlurView } from "expo-blur";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
+  Alert,
   Animated,
   Dimensions,
   Image,
+  StyleSheet,
   Switch,
-  Alert,
 } from "react-native";
 import { LinearGradient } from "react-native-svg";
 import { Feather as Icon } from "@expo/vector-icons";
+import { Box, Text } from "react-native-design-utility";
 
 import albums from "../mockdata/albums";
-import { gStyle, colors, images } from "../../constants";
+import { colors, gStyle, images } from "../../constants";
 import TouchIcon from "../components/TouchIcon";
 import TouchText from "../components/TouchText";
 import LineItemSong from "../components/LineItemSong";
+import { theme } from "../../constants/theme";
 
 const { width } = Dimensions.get("window");
 const stickyArray = [0];
@@ -36,24 +36,14 @@ const styles = StyleSheet.create({
     zIndex: 101,
   },
   header: {
+    width: "100%",
     height: 89,
     position: "absolute",
     top: 0,
-    width: "100%",
     zIndex: 100,
   },
   headerLinear: {
     height: 89,
-    width: "100%",
-  },
-  headerWrapper: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 24,
-    paddingTop: 24,
-    position: "absolute",
-    top: 0,
     width: "100%",
   },
   headerTitle: {
@@ -64,24 +54,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     width: width - 100,
   },
-  containerFixed: {
-    alignItems: "center",
-    paddingTop: 60,
-    position: "absolute",
-    width: "100%",
-  },
-  containerLinear: {
-    position: "absolute",
-    top: 0,
-    width: "100%",
-    zIndex: 0,
-  },
   containerImage: {
-    shadowColor: colors.black,
-    shadowOffset: { height: 8, width: 0 },
-    shadowOpacity: 0.8,
-    shadowRadius: 6,
+    ...theme.shadows[2],
     zIndex: 0,
+    elevation: 4,
   },
   image: {
     height: 148,
@@ -94,9 +70,9 @@ const styles = StyleSheet.create({
   },
   title: {
     ...gStyle.textSpotifyBold20,
-    color: colors.white,
-    marginBottom: 8,
-    paddingHorizontal: 24,
+    color: theme.color.white,
+    marginBottom: theme.space.xs,
+    paddingHorizontal: theme.space.md,
     textAlign: "center",
   },
   containerAlbum: {
@@ -104,11 +80,8 @@ const styles = StyleSheet.create({
   },
   albumInfo: {
     ...gStyle.textSpotify12,
-    color: colors.greyInactive,
+    color: theme.color.greyLight,
     marginBottom: 48,
-  },
-  stickyWrapper: {
-    marginTop: 194,
   },
   scroll: {
     paddingTop: 89,
@@ -119,40 +92,31 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   btn: {
-    backgroundColor: colors.brandPrimary,
+    backgroundColor: theme.color.green,
     borderRadius: 25,
     height: 50,
     width: 220,
   },
   btnText: {
     ...gStyle.textSpotifyBold16,
-    color: colors.white,
+    color: theme.color.white,
     letterSpacing: 1,
     textTransform: "uppercase",
   },
   shuffleWrapper: {
     alignItems: "center",
     height: 50,
-    shadowColor: colors.blackBg,
-    shadowOffset: { height: -10, width: 0 },
-    shadowOpacity: 0.2,
-    shadowRadius: 20,
+    elevation: 5,
+    ...theme.shadows[1],
   },
   songsWrapper: {
     alignItems: "center",
-    backgroundColor: colors.blackBg,
+    backgroundColor: theme.color.black,
     minHeight: 540,
-  },
-  row: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 16,
-    width: "100%",
   },
   download: {
     ...gStyle.textSpotifyBold18,
-    color: colors.white,
+    color: theme.color.white,
   },
 });
 
@@ -164,12 +128,10 @@ const AlbumScreen = ({ navigation, route }) => {
   const [album, setAlbum] = useState([]);
   const [downloaded, setDownloaded] = useState(false);
   const [song, setSong] = useState(null);
-  //   const [title, setTitle] useState(title)
 
   const scrollY = new Animated.Value(0);
 
   useEffect(() => {
-    //   const albumTitle = navigation.getParam("title", "Extraordinary Machine");
     //   console.log(albumTitle);
     setAlbum(albums[albumTitle]);
     setSong(currentSongData.title);
@@ -210,51 +172,63 @@ const AlbumScreen = ({ navigation, route }) => {
   }
 
   return (
-    <View style={gStyle.container}>
+    <Box f={1} bg="black">
       <BlurView style={styles.blurview} tint={"dark"} intensity={99} />
 
-      <View style={styles.header}>
+      <Box style={styles.header}>
         <Animated.View
           style={[styles.headerLinear, { opacity: opacityHeader }]}
         >
           <LinearGradient fill={album.backgroundColor} height={89} />
         </Animated.View>
 
-        <View style={styles.headerWrapper}>
+        <Box
+          w="100%"
+          dir="row"
+          align="center"
+          justify="between"
+          px="md"
+          pt="md"
+          position="absolute"
+          top={0}
+        >
           <TouchIcon
-            icon={<Icon color={colors.white} name="chevron-left" />}
+            icon={<Icon color={theme.color.white} name="chevron-left" />}
             onPress={() => console.warn("Pressed!")}
           />
 
           {/* <Animated.View style={{ opacity: opacityShuffle }}> */}
-          <View>
+          <>
             <Text style={styles.headerTitle}>{album.title}</Text>
-          </View>
+          </>
           <TouchIcon
             icon={<Icon color={colors.white} name="more-horizontal" />}
             onPress={() => console.warn("Also pressed!")}
           />
-        </View>
-      </View>
+        </Box>
+      </Box>
 
-      <View style={styles.containerFixed}>
-        <View style={styles.containerLinear}>
+      <Box w="100%" align="center" pt={60} position="absolute">
+        <Box w="100%" position="absolute" top={0}>
           <LinearGradient fill={album.backgroundColor} />
-        </View>
-        <View style={styles.containerImage}>
-          <Image source={images[album.image]} style={styles.image} />
-        </View>
-        <View style={styles.containerTitle}>
+        </Box>
+
+        <Box style={styles.containerImage}>
+          <Image style={styles.image} source={images[album.image]} />
+        </Box>
+
+        <Box style={styles.containerTitle}>
           <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
             {album.title}
           </Text>
-        </View>
-        <View style={styles.containerAlbum}>
+        </Box>
+
+        <Box style={styles.containerAlbum}>
           <Text style={styles.albumInfo}>
             {`Album by ${album.artist} · ${album.released}`}
           </Text>
-        </View>
-      </View>
+        </Box>
+      </Box>
 
       <Animated.ScrollView
         onScroll={Animated.event(
@@ -266,25 +240,25 @@ const AlbumScreen = ({ navigation, route }) => {
         stickyHeaderIndices={stickyArray}
         style={styles.scroll}
       >
-        <View style={styles.stickyWrapper}>
+        <Box mt={194}>
           <Animated.View
             style={[styles.containerStickyLinear, { opacity: opacityShuffle }]}
           >
             <LinearGradient fill={colors.black20} height={50} />
           </Animated.View>
 
-          <View style={styles.shuffleWrapper}>
+          <Box style={styles.shuffleWrapper}>
             <TouchText
               onPress={() => null}
               style={styles.btn}
               styleText={styles.btnText}
               text="Shuffle Play"
             />
-          </View>
-        </View>
+          </Box>
+        </Box>
 
-        <View style={styles.songsWrapper}>
-          <View style={styles.row}>
+        <Box style={styles.songsWrapper}>
+          <Box w="100%" dir="row" align="center" justify="between" p="sm">
             <Text style={styles.download}>
               {downloaded ? "Downloaded" : "Download"}
             </Text>
@@ -294,7 +268,7 @@ const AlbumScreen = ({ navigation, route }) => {
               onValueChange={(val) => toggleDownloaded(val)}
               value={downloaded}
             />
-          </View>
+          </Box>
 
           {album.tracks &&
             album.tracks.map((track, index) => (
@@ -312,10 +286,10 @@ const AlbumScreen = ({ navigation, route }) => {
                 }}
               />
             ))}
-        </View>
-        <View style={gStyle.spacer16} />
+        </Box>
+        <Box h={128} />
       </Animated.ScrollView>
-    </View>
+    </Box>
   );
 };
 

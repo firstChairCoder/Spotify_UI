@@ -1,14 +1,35 @@
-import * as React from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import {
-  Feather,
   Entypo,
-  MaterialIcons,
-  MaterialCommunityIcons,
+  Feather,
   FontAwesome,
+  MaterialCommunityIcons,
+  MaterialIcons,
 } from "@expo/vector-icons";
+import { Box, Text } from "react-native-design-utility";
+
 import { colors, gStyle } from "../../constants";
+import { theme } from "../../constants/theme";
+
+const color = theme.color.greyLight;
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: theme.space.md,
+    paddingVertical: 10,
+    width: "100%",
+  },
+  title: {
+    ...gStyle.textSpotify14,
+    color: theme.color.white,
+    marginLeft: theme.space.sm,
+  },
+});
 
 const LineItemCategory = ({
   icon,
@@ -22,51 +43,43 @@ const LineItemCategory = ({
   switch (iconLibrary) {
     default:
     case "Feather":
-      iconDisplay = (
-        <Feather color={colors.greyInactive} name={icon} size={24} />
-      );
+      iconDisplay = <Feather color={color} name={icon} size={24} />;
       break;
     case "Entypo":
-      iconDisplay = (
-        <Entypo color={colors.greyInactive} name={icon} size={24} />
-      );
+      iconDisplay = <Entypo color={color} name={icon} size={24} />;
       break;
     case "MaterialIcons":
-      iconDisplay = (
-        <MaterialIcons color={colors.greyInactive} name={icon} size={24} />
-      );
+      iconDisplay = <MaterialIcons color={color} name={icon} size={24} />;
       break;
     case "MaterialCommunityIcons":
       iconDisplay = (
-        <MaterialCommunityIcons
-          color={colors.greyInactive}
-          name={icon}
-          size={24}
-        />
+        <MaterialCommunityIcons color={color} name={icon} size={24} />
       );
       break;
     case "FontAwesome":
-      iconDisplay = (
-        <FontAwesome color={colors.greyInactive} name={icon} size={24} />
-      );
+      iconDisplay = <FontAwesome color={color} name={icon} size={24} />;
       break;
   }
 
   return (
     <TouchableOpacity
-      activeOpacity={gStyle.activeOpacity}
+      activeOpacity={0.7}
       onPress={onPress}
       style={styles.container}
     >
-      <View style={gStyle.flexRowCenterAlign}>
+      <Box dir="row" align="center">
         {iconDisplay}
         <Text style={styles.title}>{title}</Text>
-      </View>
+      </Box>
 
       {disableRightSide ? null : (
-        <View style={styles.containerRight}>
-          <Feather color={colors.greyInactive} name="chevron-right" size={20} />
-        </View>
+        <Box f={1} align="right">
+          <Feather
+            name={"chevron-right"}
+            color={colors.greyInactive}
+            size={20}
+          />
+        </Box>
       )}
     </TouchableOpacity>
   );
@@ -87,25 +100,5 @@ LineItemCategory.propTypes = {
   disableRightSide: PropTypes.bool,
   iconLibrary: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 24,
-    paddingVertical: 10,
-    width: "100%",
-  },
-  title: {
-    ...gStyle.textSpotify14,
-    color: colors.white,
-    marginLeft: 16,
-  },
-  containerRight: {
-    alignItems: "flex-end",
-    flex: 1,
-  },
-});
 
 export default LineItemCategory;

@@ -1,16 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
+import { Box } from "react-native-design-utility";
 
 import Header from "../components/Header";
 import LineItemCategory from "../components/LineItemCategory";
-import { gStyle } from "../../constants";
 import yourLibrary from "../mockdata/yourLibraryMenu.json";
 
 const styles = StyleSheet.create({
   headerWrapper: {
-    position: "absolute",
-    top: 0,
-    width: "100%",
     zIndex: 10,
   },
   contentWrapper: {
@@ -22,10 +19,10 @@ const styles = StyleSheet.create({
 
 const LibraryScreen = () => {
   return (
-    <View style={gStyle.container}>
-      <View style={styles.headerWrapper}>
+    <Box f={1} bg="black">
+      <Box w="100%" position="absolute" top={0} style={styles.headerWrapper}>
         <Header title={"Your Library"} />
-      </View>
+      </Box>
 
       <FlatList
         contentContainerStyle={styles.contentWrapper}
@@ -39,7 +36,7 @@ const LibraryScreen = () => {
           />
         )}
       />
-    </View>
+    </Box>
   );
 };
 

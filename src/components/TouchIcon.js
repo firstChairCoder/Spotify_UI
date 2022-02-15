@@ -1,17 +1,23 @@
-import * as React from "react";
+import React, { cloneElement } from "react";
 import PropTypes from "prop-types";
-import { TouchableOpacity } from "react-native";
-import { gStyle } from "../../constants";
+import { Pressable, StyleSheet } from "react-native";
+
+const styles = StyleSheet.create({
+  icon: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 const TouchIcon = ({ icon, iconSize, onPress, style }) => (
-  <TouchableOpacity
-    activeOpacity={gStyle.activeOpacity}
+  <Pressable
+    activeOpacity={0.7}
     onPress={onPress}
     hitSlop={{ bottom: 5, left: 5, right: 5, top: 5 }}
-    style={[gStyle.flexCenter, style]}
+    style={[styles.icon, style]}
   >
-    {React.cloneElement(icon, { size: iconSize })}
-  </TouchableOpacity>
+    {cloneElement(icon, { size: iconSize })}
+  </Pressable>
 );
 
 TouchIcon.defaultProps = {

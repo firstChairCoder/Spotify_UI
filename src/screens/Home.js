@@ -1,25 +1,21 @@
-import React, { useRef } from "react";
+import React from "react";
 import {
   Animated,
-  StyleSheet,
-  View,
-  Text,
   FlatList,
-  TouchableOpacity,
   Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome as Icon } from "@expo/vector-icons";
+import { Box } from "react-native-design-utility";
 
-// components
-// import AlbumsHorizontal from "../components/AlbumsHorizontal";
-
-// mock data
 import heavyRotation from "../mockdata/heavyRotation.json";
 import jumpBackIn from "../mockdata/jumpBackIn.json";
 import recentlyPlayed from "../mockdata/recentlyPlayed.json";
-
-import { gStyle, colors, images } from "../../constants";
+import { gStyle, images } from "../../constants";
+import { theme } from "../../constants/theme";
 
 const styles = StyleSheet.create({
   container: {
@@ -35,31 +31,31 @@ const styles = StyleSheet.create({
   },
   heading: {
     ...gStyle.textSpotifyBold18,
-    color: colors.white,
+    color: theme.color.white,
     paddingBottom: 6,
     textAlign: "center",
   },
   tagline: {
     ...gStyle.textSpotify12,
-    color: colors.greyInactive,
+    color: theme.color.greyLight,
     paddingBottom: 6,
     textAlign: "center",
   },
   containerContent: {
-    paddingLeft: 16,
+    paddingLeft: theme.space.sm,
   },
   item: {
-    marginRight: 16,
+    marginRight: theme.space.sm,
     width: 148,
   },
   image: {
-    backgroundColor: colors.greyLight,
+    backgroundColor: theme.color.greyLight,
     height: 148,
     width: 148,
   },
   title: {
     ...gStyle.textSpotifyBold12,
-    color: colors.white,
+    color: theme.color.white,
     marginTop: 4,
     textAlign: "center",
   },
@@ -69,7 +65,7 @@ const AlbumsHorizontal = ({ data, heading, tagline }) => {
   const navigation = useNavigation();
 
   return (
-    <View style={{ marginBottom: 32, width: "100%" }}>
+    <Box w="100%" mb={32}>
       {heading && <Text style={styles.heading}>{heading}</Text>}
       {tagline && <Text style={styles.tagline}>{tagline}</Text>}
 
@@ -85,17 +81,17 @@ const AlbumsHorizontal = ({ data, heading, tagline }) => {
             onPress={() => navigation.navigate("Album", { title: item.title })}
             style={styles.item}
           >
-            <View style={styles.image}>
+            <>
               {item.image && (
                 <Image source={images[item.image]} style={styles.image} />
               )}
-            </View>
+            </>
             <Text style={styles.title}>{item.title}</Text>
           </TouchableOpacity>
         )}
         showsHorizontalScrollIndicator={false}
       />
-    </View>
+    </Box>
   );
 };
 
@@ -123,7 +119,7 @@ const HomeScreen = () => {
         showsVerticalScrollIndicator={false}
         style={gStyle.container}
       >
-        <View style={gStyle.spacer16} />
+        <Box h={128} />
 
         <AlbumsHorizontal data={recentlyPlayed} heading="Recently played" />
 

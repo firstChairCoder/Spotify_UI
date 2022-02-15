@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import SearchScreen from "../screens/Search";
-
 import SearchSvg from "../../assets/svg/Search";
 
 const Stack = createNativeStackNavigator();
